@@ -2,21 +2,57 @@
 
 A matrix algebra implementation in Java.
 
-## Example w/ Multi-Variable Regression
+## Primary StatPack Functions
 
+Source: StatPack.java <br />
+Compile:
+```sh
+> javac StatPack.java
+```
 
-#### Beta Coeffecient Formula
-![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20%3D%20%28X%5ETX%29%5E%7B-1%7DX%5ETy)
-
+### Mean
+![Equation](https://latex.codecogs.com/gif.latex?%5Chat%7B%5Cmu%7D%3D%5Cdfrac%7B1%7D%7Bm%7D1%5ETX)
 ```Java
-public class main {
-  
-  public static void main(String[] args) {
-  
-    Matrix stat = new Matrix();
-    
-    // Creating your 'X' values dataframe w/ 3 variables. The first column = 1 to solve for b0
-    
+public static void MeanExample(){
+    Matrix np = new Matrix();
+    StatPack sp = new StatPack();
+    double[][] X = {{6, 6, 7, 2},
+                    {14, 3, 51, 6},
+                    {4, 13, 25, 18},
+                    {24, 31, 15, 36},
+                    {4, 13, 5, 2},
+                    {4, 3, 51, 16}};
+
+    double[][] mu = sp.Mean(X);
+    np.PrintM(mu);
+}
+```
+
+### Covariance & Correlation Matrix
+```Java
+public static void CovarExample(){
+    double[][] X = {{6, 6, 7, 2},
+                    {14, 3, 51, 6},
+                    {4, 13, 25, 18},
+                    {24, 31, 15, 36},
+                    {4, 13, 5, 2},
+                    {4, 3, 51, 16}};
+
+    double[][] covariance = sp.Variance(X, "covariance");
+    double[][] correlation = sp.Variance(X, "correlation");
+
+    np.PrintM(covariance);
+    np.PrintM(correlation);
+
+}
+```
+
+
+### Regression Coeffecients
+```Java
+public static void MultiVariableReg(){
+    Matrix np = new Matrix();
+    StatPack sp = new StatPack();
     double[][] X = {{1, 300, 298, 101},
                     {1, 320, 245, 102},
                     {1, 310, 233, 103},
@@ -28,37 +64,25 @@ public class main {
                     {1, 307, 260, 110},
                     {1, 312, 259, 107},
                     {1, 309, 251, 113}};
-    
-    // Actual 'Y' values converted to (n x 1) vector
-    double[] y = {10, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
-    double[][] Y = stat.Vector(y);
-    
-    // Calculate X transpose times X
-    
-    double[][] XT = stat.MultiplyMatrix(stat.Transpose(X), X);
-    
-    // Take inverse of 'X^T * X'
-    
-    double[][] IVX = stat.InverseMatrix(XT);
-    
-    // Solve the second piece (X^T * y)
-    
-    double[][] XTY = stat.MultiplyMatrix(stat.Transpose(X), Y);
-    
-    // Final beta vector
-    
-    double[][] Beta = stat.MultiplyMatrix(IVX, XTY);
-    
-    // Prints your Beta vector
-    stat.PrintM(Beta);
-  
-  }
+
+    double[] Yh = {20, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
+
+      double[][] beta = sp.Regression(X, Yh);
+
+      np.PrintM(beta);
 
 }
 
 ```
 
-## Primary Functions
+
+## Primary Matrix Functions
+
+Source: Matrix.java <br />
+Compile:
+```sh
+> javac Matrix.java
+```
 
 ### Matrix Multiplication
 ```Java
