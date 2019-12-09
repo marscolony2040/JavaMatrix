@@ -2,7 +2,63 @@
 
 A matrix algebra implementation in Java.
 
-## Functions
+## Example w/ Multi-Variable Regression
+
+
+#### Beta Coeffecient Formula
+![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20%3D%20%28X%5ETX%29%5E%7B-1%7DX%5ETy)
+
+```Java
+public class main {
+  
+  public static void main(String[] args) {
+  
+    Matrix stat = new Matrix();
+    
+    // Creating your 'X' values dataframe w/ 3 variables. The first column = 1 to solve for b0
+    
+    double[][] X = {{1, 300, 298, 101},
+                    {1, 320, 245, 102},
+                    {1, 310, 233, 103},
+                    {1, 290, 252, 108},
+                    {1, 270, 253, 106},
+                    {1, 320, 257, 140},
+                    {1, 310, 254, 120},
+                    {1, 315, 280, 101},
+                    {1, 307, 260, 110},
+                    {1, 312, 259, 107},
+                    {1, 309, 251, 113}};
+    
+    // Actual 'Y' values converted to (n x 1) vector
+    double[] y = {10, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
+    double[][] Y = stat.Vector(y);
+    
+    // Calculate X transpose times X
+    
+    double[][] XT = stat.MultiplyMatrix(stat.Transpose(X), X);
+    
+    // Take inverse of 'X^T * X'
+    
+    double[][] IVX = stat.InverseMatrix(XT);
+    
+    // Solve the second piece (X^T * y)
+    
+    double[][] XTY = stat.MultiplyMatrix(stat.Transpose(X), Y);
+    
+    // Final beta vector
+    
+    double[][] Beta = stat.MultiplyMatrix(IVX, XTY);
+    
+    // Prints your Beta vector
+    stat.PrintM(Beta);
+  
+  }
+
+}
+
+```
+
+## Primary Functions
 
 ### Matrix Multiplication
 ```Java
