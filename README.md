@@ -29,6 +29,12 @@ public static void MeanExample(){
 ```
 
 ### Covariance & Correlation Matrix
+Covariance
+![Equation](https://latex.codecogs.com/gif.latex?%5CSigma%20%3D%20%28x-%5Cmu%29%5ET%28x-%5Cmu%29) <br />
+
+Correlation
+![Equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20H%20%3D%20%5Csqrt%7Bdiag%28X%29%7D%20%26%20%5Crho%20%3D%20%5Cdfrac%7B%5CSigma_%7Bi%2C%20j%7D%20%7D%7B%20%5BHH%5ET%5D_%7Bi%2C%20j%7D%20%7D%5Cend%7Bmatrix%7D)
+
 ```Java
 public static void CovarExample(){
     double[][] X = {{6, 6, 7, 2},
@@ -49,6 +55,7 @@ public static void CovarExample(){
 
 
 ### Regression Coeffecients
+![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20%3D%20%28X%5ETX%29%5E%7B-1%7DX%5ETy)
 ```Java
 public static void MultiVariableReg(){
     Matrix np = new Matrix();
