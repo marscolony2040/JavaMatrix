@@ -1,6 +1,7 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
+import java.math.*;
 
 
 public class Matrix {
@@ -77,6 +78,15 @@ public class Matrix {
     return res;
   }
 
+  // Creates a zeros or ones vector
+  public static double[][] Ones(int n, double coef){
+      double[][] res = new double[1][n];
+      for(int i = 0; i < n; i++){
+          res[0][i] = coef;
+      }
+      return res;
+  }
+
   // Adds or subtracts two matrices
   public static double[][] MOper(double[][] X, double[][] Y, double op){
     double[][] Z = new double[X.length][X[0].length];
@@ -97,6 +107,37 @@ public class Matrix {
       }
     }
     return Z;
+  }
+
+  // Multiplies coefficient by matrix
+  public static double[][] Ax(double a, double[][] X){
+      double[][] Y = new double[X.length][X[0].length];
+      for(int i = 0; i < X.length; i++){
+          for(int j = 0; j < X[0].length; j++){
+              Y[i][j] = a * X[i][j];
+          }
+      }
+      return Y;
+  }
+
+  // Returns the diagonal of a matrix
+  public static double[][] Diag(double[][] X){
+      double[][] Y = new double[X.length][1];
+      for(int i = 0; i < X.length; i++){
+          Y[i][0] = X[i][i];
+      }
+      return Y;
+  }
+
+  // Roots or Powers Matrix
+  public static double[][] ExponentMatrix(double[][] X, double e) {
+      double[][] H = new double[X.length][X[0].length];
+      for(int i = 0; i < X.length; i++){
+          for(int j = 0; j < X[0].length; j++){
+              H[i][j] = Math.pow(X[i][j], e);
+          }
+      }
+      return H;
   }
 
   // Transposes your matrix
@@ -203,6 +244,16 @@ public class Matrix {
     }
 
     return I;
+  }
+
+  // Finds the determenant of a matrix
+  public static double Determenant(double[][] X){
+      double[][] Y = Diagonalize(X, "Triangular");
+      double prod = 1.0;
+      for(int i = 0; i < Y.length; i++){
+          prod *= Y[i][i];
+      }
+      return prod;
   }
 
 }

@@ -6,31 +6,65 @@ import java.io.*;
 
 class main {
 
+  public static StatPack sp = new StatPack();
+  public static Matrix np = new Matrix();
+
   public static void main(String[] args) throws Exception {
-    Matrix np = new Matrix();
+      MeanExample();
+      CovarExample();
+      MultiVariableReg();
+  }
 
-    double[][] X = {{1, 300, 298, 101},
-                    {1, 320, 245, 102},
-                    {1, 310, 233, 103},
-                    {1, 290, 252, 108},
-                    {1, 270, 253, 106},
-                    {1, 320, 257, 140},
-                    {1, 310, 254, 120},
-                    {1, 315, 280, 101},
-                    {1, 307, 260, 110},
-                    {1, 312, 259, 107},
-                    {1, 309, 251, 113}};
+  // Mean vector example demo
+  public static void MeanExample(){
+      double[][] X = {{6, 6, 7, 2},
+                      {14, 3, 51, 6},
+                      {4, 13, 25, 18},
+                      {24, 31, 15, 36},
+                      {4, 13, 5, 2},
+                      {4, 3, 51, 16}};
 
-    double[] Yh = {10, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
-    double[][] Y = np.Vector(Yh);
+      double[][] mu = sp.Mean(X);
+      np.PrintM(mu);
+  }
 
-    double[] beta = np.VArray(np.MultiplyMatrix(np.InverseMatrix(np.MultiplyMatrix(np.Transpose(X), X)),np.MultiplyMatrix(np.Transpose(X), Y)));
+  // Covariance & Correlation vector example demo
+  public static void CovarExample(){
+      double[][] X = {{6, 6, 7, 2},
+                      {14, 3, 51, 6},
+                      {4, 13, 25, 18},
+                      {24, 31, 15, 36},
+                      {4, 13, 5, 2},
+                      {4, 3, 51, 16}};
 
-    np.PrintA(beta);
+      double[][] covariance = sp.Variance(X, "covariance");
+      double[][] correlation = sp.Variance(X, "correlation");
+
+      np.PrintM(covariance);
+      np.PrintM(correlation);
 
   }
 
+  // Multivariable Regression example demo
+  public static void MultiVariableReg(){
+      double[][] X = {{1, 300, 298, 101},
+                      {1, 320, 245, 102},
+                      {1, 310, 233, 103},
+                      {1, 290, 252, 108},
+                      {1, 270, 253, 106},
+                      {1, 320, 257, 140},
+                      {1, 310, 254, 120},
+                      {1, 315, 280, 101},
+                      {1, 307, 260, 110},
+                      {1, 312, 259, 107},
+                      {1, 309, 251, 113}};
 
+      double[] Yh = {20, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
 
+      double[][] beta = sp.Regression(X, Yh);
+
+      np.PrintM(beta);
+
+  }
 
 }
