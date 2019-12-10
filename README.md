@@ -33,7 +33,7 @@ Covariance
 ![Equation](https://latex.codecogs.com/gif.latex?%5CSigma%20%3D%20%5Cdfrac%7B1%7D%7Bm-1%7D%28X-%5Chat%7BX%7D%29%5ET%28X%20-%20%5Chat%7BX%7D%29) <br />
 
 Correlation
-![Equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20H%20%3D%20%5Csqrt%7Bdiag%28X%29%7D%20%26%20%5Crho%20%3D%20%5Cdfrac%7B%5CSigma_%7Bi%2C%20j%7D%20%7D%7B%20%5BHH%5ET%5D_%7Bi%2C%20j%7D%20%7D%5Cend%7Bmatrix%7D)
+![Equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20H%3D%5Csqrt%7Bdiag%5Cbig%28%7B%5CSigma%7D%5Cbig%29%7D%20%26%26%20%5Crho%20%3D%20%5Cdfrac%7B%5CSigma_%7Bi%2C%20j%7D%7D%7B%5BHH%5ET%5D_%7Bi%2C%20j%7D%7D%20%5Cend%7Bmatrix%7D)
 
 ```Java
 public static void CovarExample(){
