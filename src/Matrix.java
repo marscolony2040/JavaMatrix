@@ -44,6 +44,16 @@ public class Matrix {
     System.out.println();
   }
 
+  // Creates a single array grid bounded to a range
+  public static double[] Sgrid(double a, double b, int n){
+      double[] res = new double[n];
+      double dx = (b - a) / (double) (n - 1);
+      for(int i = 0; i < n; i++){
+          res[i] = a + (double) i * dx;
+      }
+      return res;
+  }
+
   // Creates a (n x n) grid
   public static double[][] Ngrid(double a, double b, int n, int c) {
     double[][] res = new double[n][n];
