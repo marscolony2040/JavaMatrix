@@ -11,10 +11,14 @@ class main {
 
   public static void main(String[] args) throws Exception {
 
-    double[][] c = {{4, 5, 6}, {3, 1, 2}, {9, 6, 6}};
-    System.out.println(np.Trace(c));
+    double[][] X = {{22, 45, 33},
+                    {33, 57, 21},
+                    {44, 51, 25},
+                    {33, 27, 41},
+                    {21, 45, 57},
+                    {33, 66, 99}};
 
-    //MinVarExample();
+    np.PrintM(np.Sorter(X, 1));
 
   }
 

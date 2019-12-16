@@ -150,6 +150,17 @@ public class Matrix {
       return H;
   }
 
+  // Gives a number a Matrix as a power
+  public static double[][] MxPower(double e, double[][] X){
+      double[][] Z = Transfer(X);
+      for(int i = 0; i < Z.length; i++){
+          for(int j = 0; j < Z[0].length; j++){
+              Z[i][j] = Math.pow(e, Z[i][j]);
+          }
+      }
+      return Z;
+  }
+
   // Transposes your matrix
   public static double[][] Transpose(double[][] X){
     double[][] Y = new double[X[0].length][X.length];
@@ -273,6 +284,62 @@ public class Matrix {
           prod *= Y[i][i];
       }
       return prod;
+  }
+
+  // Sorts each column of a matrix in ascending or descending order
+  public static double[][] Sorter(double[][] X, int c){
+      double[][] Z = Transfer(X);
+      int n = Z.length, m = Z[0].length;
+      double[][] V = new double[n][m];
+      double[] cld = new double[m];
+      double[] gld = new double[m];
+      int[][] idx = new int[n][2];
+
+      for(int i = 0; i < m; i++){
+          if(c == 0){
+              cld[i] = -100000000;
+              gld[i] = 100000000;
+          } else {
+              cld[i] = 100000000;
+              gld[i] = -100000000;
+          }
+      }
+
+      int[] px = new int[m];
+
+      for(int i = 0; i < n; i++){
+          for(int ii = 0; ii < n; ii++){
+              for(int jj = 0; jj < m; jj++){
+                  if(c == 0){
+                      if(gld[jj] > Z[ii][jj] && Z[ii][jj] > cld[jj]){
+                          cld[jj] = Z[ii][jj];
+                      }
+                  } else {
+                      if(gld[jj] < Z[ii][jj] && Z[ii][jj] < cld[jj]){
+                          cld[jj] = Z[ii][jj];
+                      }
+                  }
+              }
+          }
+
+          for(int jj = 0; jj < m; jj++){
+              gld[jj] = cld[jj];
+              if(c == 0){
+                cld[jj] = -100000000;
+              } else {
+                cld[jj] = 100000000;
+              }
+              for(int mm = 0; mm < n; mm++){
+                  if(Z[mm][jj] == gld[jj]){
+                      V[px[jj]][jj] = Z[mm][jj];
+                      px[jj] += 1;
+                  }
+              }
+          }
+      }
+
+
+      return V;
   }
 
 }
