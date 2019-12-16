@@ -11,8 +11,10 @@ class main {
 
   public static void main(String[] args) throws Exception {
 
+    double[][] c = {{4, 5, 6}, {3, 1, 2}, {9, 6, 6}};
+    System.out.println(np.Trace(c));
 
-    MinVarExample();
+    //MinVarExample();
 
   }
 

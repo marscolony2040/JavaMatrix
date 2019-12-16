@@ -175,6 +175,15 @@ public class Matrix {
     return Z;
   }
 
+  // Calculates the trace of a matrix
+  public static double Trace(double[][] X){
+    double sum_it = 0;
+    for(int i = 0; i < X.length; i++){
+      sum_it += X[i][i];
+    }
+    return sum_it;
+  }
+
   // Row Reducing Function
   public static double[][] RowReduce(double[][] X){
     double[][] Z = Transfer(X);
