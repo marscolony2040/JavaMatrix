@@ -69,7 +69,8 @@ public class StatPack {
     }
 
     // Calculates joint distribution matrix
-    public static double[][] JointDist(double[][] X) {
+    public static double[][] JointDist(double[][] Z) {
+        double[][] X = np.Sorter(Z, 1);
         double[][] mu = Mean(X);
         double[][] E = Variance(X, "covariance");
         double factor = 1.0 / (Math.pow(2.0*Math.PI, E.length/2.0) * Math.pow(np.Determenant(E), 0.5));
@@ -79,5 +80,6 @@ public class StatPack {
         double[][] coef = np.MultiplyMatrix(x_mu, np.MultiplyMatrix(E_1, np.Transpose(x_mu)));
         return np.Ax(factor, np.MxPower(Math.exp(1), np.Ax(-0.5, coef)));
     }
+    
 
 }

@@ -11,14 +11,15 @@ class main {
 
   public static void main(String[] args) throws Exception {
 
-    double[][] X = {{22, 45, 33},
-                    {33, 57, 21},
-                    {44, 51, 25},
-                    {33, 27, 41},
-                    {21, 45, 57},
-                    {33, 66, 99}};
+    double[][] X = {{22, 45},
+                    {33, 57},
+                    {44, 51},
+                    {33, 27},
+                    {21, 45},
+                    {33, 66}};
 
-    np.PrintM(np.Sorter(X, 1));
+    System.out.println(np.MxSum(sp.JointDist(X)));
+
 
   }
 

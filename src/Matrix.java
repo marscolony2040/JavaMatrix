@@ -161,6 +161,17 @@ public class Matrix {
       return Z;
   }
 
+  // Takes the sum of a matrix
+  public static double MxSum(double[][] X){
+    double totalS = 0;
+    for(int i = 0; i < X.length; i++){
+      for(int j = 0; j < X[0].length; j++){
+        totalS += X[i][j];
+      }
+    }
+    return totalS;
+  }
+
   // Transposes your matrix
   public static double[][] Transpose(double[][] X){
     double[][] Y = new double[X[0].length][X.length];
