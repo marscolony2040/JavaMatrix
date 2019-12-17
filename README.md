@@ -1,4 +1,4 @@
-# Java Matrix Algebra
+# Java Matrix Algebra :alien:
 
 A matrix algebra implementation in Java.
 
