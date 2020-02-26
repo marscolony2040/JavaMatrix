@@ -2,10 +2,10 @@
 
 A matrix algebra implementation in Java.
 
-## Run
+## Run :crystal_ball:
 ![Alt](https://github.com/MoSharieff/JavaMatrix/blob/master/imgs/example.gif)
 
-## Importing
+## Importing :computer:
 
 Source: Matrix.java <br />
 Compile:
@@ -25,7 +25,7 @@ public class test {
 
 ```
 
-## Primary Functions
+## Primary Functions :satellite:
 
 #### Multiply
 ````Java
@@ -123,7 +123,7 @@ double[][] B = mx.MxPower(double coef, double[][] EXP);
 ````
 
 
-## Other Examples
+## Other Examples :partly_sunny:
 
 Compile & Import ```StatPack.java```
 
