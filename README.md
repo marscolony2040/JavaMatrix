@@ -2,13 +2,26 @@
 
 A matrix algebra implementation in Java.
 
-## Primary StatPack Functions
+## Importing
 
-Source: StatPack.java <br />
+Source: Matrix.java <br />
 Compile:
 ```sh
-> javac StatPack.java
+> javac Matrix.java
 ```
+Import:
+```Java
+
+public class test {
+
+  public static void main(String[] args) {
+    Matrix mx = new Matrix();
+  }
+}
+
+
+```
+
 
 ### Mean
 ![Equation](https://latex.codecogs.com/gif.latex?%5Chat%7B%5Cmu%7D%3D%5Cdfrac%7B1%7D%7Bm%7D1%5ETX)
