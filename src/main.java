@@ -11,17 +11,13 @@ class main {
 
   public static void main(String[] args) throws Exception {
 
-    double[][] X = {{22, 45},
-                    {33, 57},
-                    {44, 51},
-                    {33, 27},
-                    {21, 45},
-                    {33, 66}};
+    double[][] X = {{3, 5, 2}, {2, 6, 4}, {1, 3, 2}, {2, 1, 6}};
 
-    System.out.println(np.MxSum(sp.JointDist(X)));
+    np.PrintM(sp.Variance(X, "covariance"));
 
 
   }
+
 
   // Min-Variance Portfolio example demo
   public static void MinVarExample(){
