@@ -22,6 +22,40 @@ public class test {
 
 ```
 
+## Primary Functions
+
+#### Multiply
+````Java
+
+  mx.MultiplyMatrix(double[][] X, double[][] Y);
+
+````
+
+#### Transpose
+
+#### Row Reduce
+
+#### Diagonalize
+
+#### Inverse
+
+#### Determenant
+
+#### Trace
+
+#### Add/Subtract Two Matrices
+
+#### Multiply matrix by coefficient
+
+#### Get Diagonal Of Matrix
+
+#### Give a power to each variable of a matrix
+
+#### Give a coefficient a matrix as an exponent
+
+
+
+## Examples
 
 ### Mean
 ![Equation](https://latex.codecogs.com/gif.latex?%5Chat%7B%5Cmu%7D%3D%5Cdfrac%7B1%7D%7Bm%7D1%5ETX)
