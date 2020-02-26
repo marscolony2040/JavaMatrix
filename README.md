@@ -3,7 +3,7 @@
 A matrix algebra implementation in Java.
 
 ## Run
-![Alt]()
+![Alt](https://github.com/MoSharieff/JavaMatrix/blob/master/imgs/example.gif)
 
 ## Importing
 
