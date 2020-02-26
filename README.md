@@ -57,23 +57,72 @@ double[][] XD = mx.Diagonalize(double[][] X, "Left" | "Right" | "Triangular");
 
 #### Inverse
 
+````Java
+
+double[][] XI = mx.InverseMatrix(double[][] X);
+
+````
+
 #### Determenant
+
+````Java
+
+double xdet = mx.Determenant(double[][] X);
+
+````
 
 #### Trace
 
+````Java
+
+double xtr = mx.Trace(double[][] X);
+
+````
+
 #### Add/Subtract Two Matrices
+
+````Java
+
+double[][] C = mx.Moper(double[][] A, double[][] B, 1 or -1);
+
+````
 
 #### Multiply matrix by coefficient
 
+````Java
+
+double[][] B = mx.MultiplyMatrix(double coef, double[][] A);
+
+````
+
 #### Get Diagonal Of Matrix
+
+````Java
+
+double[][] XD = mx.Diagonal(double[][] X);
+
+````
 
 #### Give a power to each variable of a matrix
 
+````Java
+
+double[][] B = mx.ExponentMatrix(double[][] A, double exp);
+
+````
+
 #### Give a coefficient a matrix as an exponent
 
+````Java
+
+double[][] B = mx.MxPower(double coef, double[][] EXP);
+
+````
 
 
-## Examples
+## Other Examples
+
+Compile & Import ```StatPack.java```
 
 ### Mean
 ![Equation](https://latex.codecogs.com/gif.latex?%5Chat%7B%5Cmu%7D%3D%5Cdfrac%7B1%7D%7Bm%7D1%5ETX)
