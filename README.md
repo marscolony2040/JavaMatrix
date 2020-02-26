@@ -27,15 +27,33 @@ public class test {
 #### Multiply
 ````Java
 
-  mx.MultiplyMatrix(double[][] X, double[][] Y);
+double[][] C = mx.MultiplyMatrix(double[][] A, double[][] B);
 
 ````
 
 #### Transpose
 
+````Java
+
+double[][] XT = mx.Transpose(double[][] X);
+
+````
+
 #### Row Reduce
 
+````Java
+
+double[][] XR = mx.RowReduce(double[][] X);
+
+````
+
 #### Diagonalize
+
+````Java
+
+double[][] XD = mx.Diagonalize(double[][] X, "Left" | "Right" | "Triangular");
+
+````
 
 #### Inverse
 
