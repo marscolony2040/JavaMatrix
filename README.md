@@ -2,9 +2,6 @@
 
 A matrix algebra implementation in Java.
 
-## Run :crystal_ball:
-![Alt](https://github.com/MoSharieff/JavaMatrix/blob/master/imgs/example.gif)
-
 ## Importing :computer:
 
 Source: Matrix.java <br />
