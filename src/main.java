@@ -11,9 +11,11 @@ class main {
 
   public static void main(String[] args) throws Exception {
 
-    double[][] X = {{3, 5, 2}, {2, 6, 4}, {1, 3, 2}, {2, 1, 6}};
+    //double[][] X = {{3, 5, 2}, {2, 6, 4}, {1, 3, 2}, {2, 1, 6}};
 
-    np.PrintM(sp.Variance(X, "covariance"));
+    //np.PrintM(sp.Variance(X, "covariance"));
+
+    System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
 
 
   }

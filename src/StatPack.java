@@ -67,6 +67,30 @@ public class StatPack {
         }
         return w;
     }
+
+    // Calculates coordinates for quadratic approximation
+    public static double QuadraticApproximation(double x, double y, double x0, double y0){
+        // Function f(x, y) = sin(x^2 + y^2)
+        // Function df/dx = cos(x^2 + y^2)*2x
+        // Function df/dy = cos(x^2 + y^2)*2y
+        // Function d2f/dx2 = 2[cos(x^2 + y^2) - x^2sin(x^2 + y^2)]
+        // Function d2f/dy2 = 2[cos(x^2 + y^2) - y^2sin(x^2 + y^2)]
+        // Function d2f/dxdy = -4xysin(x^2 + y^2)
+        double result;
+        double[][] X = {{x},{y}};
+        double[][] Xh = {{x0},{y0}};
+        double FXh = Math.sin(Math.pow(x0, 2) + Math.pow(y0, 2));
+        double[][] K = np.CVOper(X, Xh, -1);
+        double[][] J = {{Math.cos(Math.pow(x0, 2)+Math.pow(y0,2))*2*x0},
+                        {Math.cos(Math.pow(x0, 2)+Math.pow(y0,2))*2*y0}};
+        double[][] H = {{2*(Math.cos(Math.pow(x0, 2)+Math.pow(y0, 2))-Math.pow(x0, 2)*Math.sin(Math.pow(x0, 2)+Math.pow(y0,2))), -4*x0*y0*Math.sin(Math.pow(x0, 2) + Math.pow(y0, 2))},
+                        {-4*x0*y0*Math.sin(Math.pow(x0, 2) + Math.pow(y0, 2)), 2*(Math.cos(Math.pow(x0, 2)+Math.pow(y0, 2))-Math.pow(y0, 2)*Math.sin(Math.pow(x0, 2)+Math.pow(y0,2)))}};
+                        
+        double[][] FTHF = np.Ax(0.5, np.MultiplyMatrix(np.Transpose(K), np.MultiplyMatrix(H, K)));
+        double[][] JHF = np.MultiplyMatrix(np.Transpose(J), K);
+        result = FXh + JHF[0][0] + FTHF[0][0];  
+        return result;
+    }
     
 
 }

@@ -297,6 +297,7 @@ public class Matrix {
       return prod;
   }
 
+
   // Sorts each column of a matrix in ascending or descending order
   public static double[][] Sorter(double[][] X, int c){
       double[][] Z = Transfer(X);
