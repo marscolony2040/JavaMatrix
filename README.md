@@ -18,9 +18,12 @@ public class test {
     Matrix mx = new Matrix();
   }
 }
-
-
 ```
+## Kalman Filter :candy:
+In this repository there is a file which hosts a Kalman filter. This filter is being used to predict (x, y) points in a plane using linear algebra. The filter may be fully run with ./go.sh after granting it permissions. Additionally, the user may need to download Matplotlib for python in order to plot the results of the Kalman filter. This is my first time programming a Kalman Filter, let alone in Java so please do not expect this to be NASA quality. I feel like some of the error comes from one of the covariance matrices used in this model.
+
+### Kalman Results
+![alt](https://github.com/marscolony2040/JavaMatrix/blob/master/images/B.png)
 
 ## Primary Functions :satellite:
 
