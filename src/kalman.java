@@ -26,7 +26,7 @@ public class kalman {
         double[][] K1 = new double[2][2];
         double[][] x1k = new double[2][1];
         double[][] p1k = new double[2][2];
-        double[][] H = {{1, 0.5}, {2, 1}};
+        double[][] H = {{1, 0}, {0, 1}};
         double[][] Q = {{Rand(), Rand()},{Rand(), Rand()}};
         double[][] R = {{Rand(), Rand()},{Rand(), Rand()}};
         
@@ -39,13 +39,13 @@ public class kalman {
         double[][] store_z = new double[n][2];
 
         for(int i = 0; i < n; i++){
-            store_x = Store(i, store_x, xk[0][0], xk[1][0]);
             xk1 = XK1(xk);
+            store_x = Store(i, store_x, xk1[0][0], xk1[1][0]);
             zk[0][0] = RandX();
             zk[1][0] = RandX();
             op.write(Double.toString(zk[0][0]) + "," + Double.toString(xk1[0][0]) + "," + Double.toString(zk[1][0]) + "," + Double.toString(xk1[1][0]) + "\n");
             op.flush();
-            store_noise = Store(i, store_noise, Math.abs(zk[0][0] - xk1[0][0]), Math.abs(zk[1][0]-xk1[1][0]));
+            store_noise = Store(i, store_noise, zk[0][0] - xk1[0][0], zk[1][0]-xk1[1][0]);
             store_z = Store(i, store_z, zk[0][0], zk[1][0]);
             
             if(i > 0){
