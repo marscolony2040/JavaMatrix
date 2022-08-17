@@ -88,7 +88,7 @@ double[][] C = mx.Moper(double[][] A, double[][] B, 1 or -1);
 
 ````Java
 
-double[][] B = mx.MultiplyMatrix(double coef, double[][] A);
+double[][] B = mx.Ax(double coef, double[][] A);
 
 ````
 
