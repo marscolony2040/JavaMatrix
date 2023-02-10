@@ -192,3 +192,33 @@ public static void MultiVariableReg(){
 }
 
 ```
+
+### Target Rate and Tangent Portfolio
+
+#### Target Rate
+```math
+\Bigg ( \begin{matrix} 2\Sigma & \mu & 1 \\ \mu^T & 0 & 0 \\ 1^T & 0 & 0 \end{matrix} \Bigg ) ^{-1} \Bigg ( \begin{matrix} 0 \\ r_t \\ 1 \end{matrix} \Bigg ) = \Bigg ( \begin{matrix} w \\ \lambda_1 \\ \lambda_2 \end{matrix} \Bigg )
+```
+
+#### Tangent Rate
+```math
+t = \dfrac{\Sigma^{-1}(\mu - r_f)}{1^T\Sigma^{-1}(\mu - r_f)}
+```
+```Java
+// Target Return Portfolio example demo
+public static void TargetReturn(){
+  double[][] x = {{-0.03, 0.02, -0.01},
+                  {0.02, -0.02, 0.01},
+                  {-0.04, 0.06, 0.02},
+                  {-0.01, 0.03, 0.05},
+                  {0.08, 0.01, 0.03},
+                  {0.07, -0.05, 0.01},
+                  {-0.05, 0.02, -0.02},
+                  {0.09, 0.01, -0.01}};
+
+  double[][] W = sp.TargetRatePortfolio(x, 0.04);
+  double[][] t = sp.TangentPortfolio(x, 0.02);
+  np.PrintM(W);
+  np.PrintM(t);
+}
+```
