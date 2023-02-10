@@ -15,11 +15,27 @@ class main {
 
     //np.PrintM(sp.Variance(X, "covariance"));
 
-    System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
+    //System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
 
-
+    TargetReturn();
   }
 
+  // Target Return Portfolio example demo
+  public static void TargetReturn(){
+    double[][] x = {{-0.03, 0.02, -0.01},
+                    {0.02, -0.02, 0.01},
+                    {-0.04, 0.06, 0.02},
+                    {-0.01, 0.03, 0.05},
+                    {0.08, 0.01, 0.03},
+                    {0.07, -0.05, 0.01},
+                    {-0.05, 0.02, -0.02},
+                    {0.09, 0.01, -0.01}};
+
+    double[][] W = sp.TargetRatePortfolio(x, 0.04);
+    double[][] t = sp.TangentPortfolio(x, 0.02);
+    np.PrintM(W);
+    np.PrintM(t);
+}
 
   // Min-Variance Portfolio example demo
   public static void MinVarExample(){

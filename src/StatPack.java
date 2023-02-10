@@ -68,6 +68,51 @@ public class StatPack {
         return w;
     }
 
+    // Calculates weights for a portfolio with an inputted target rate
+    public static double[][] TargetRatePortfolio(double[][] X, double r){
+        double[][] cov = Variance(X, "covariance");
+        double[][] mu = Mean(X);
+        cov = np.Ax(2.0, cov);
+        double[][] A = new double[cov.length + 2][cov.length + 2];
+        double[][] B = new double[cov.length + 2][1];
+        for(int i = 0; i < cov.length; i++){
+            for(int j = 0; j < cov.length; j++){
+                A[i][j] = cov[i][j];
+            }
+            A[i][cov.length] = mu[i][0];
+            A[i][cov.length + 1] = 1.0;
+            A[cov.length][i] = mu[i][0];
+            A[cov.length + 1][i] = 1.0;
+            B[i][0] = 0.0;
+        }
+        B[cov.length][0] = r;
+        B[cov.length + 1][0] = 1.0;
+        double[][] W = np.MultiplyMatrix(np.InverseMatrix(A), B);
+        double[][] w = new double[cov.length][1];
+        for(int i = 0; i < w.length; i++){
+            w[i][0] = W[i][0];
+        }
+        return w;
+    }
+
+    // Calculates weights for optimal tangent portfolio
+    public static double[][] TangentPortfolio(double[][] X, double rf){
+        double[][] cov = Variance(X, "covariance");
+        double[][] ICOV = np.InverseMatrix(cov);
+        double[][] mu = Mean(X);
+        double[][] one = np.Ax(rf, np.Transpose(np.Ones(cov.length, 1.0)));
+        double[][] mu1 = np.CVOper(mu, one, -1.0);
+        double[][] Top = np.MultiplyMatrix(ICOV, mu1);
+        double[][] ones = np.Ones(Top.length, 1.0);
+        double[][] Bot = np.MultiplyMatrix(ones, Top);
+        double[][] W = new double[cov.length][1];
+        double bottom = Bot[0][0];
+        for(int i = 0; i < Top.length; i++){
+            W[i][0] = Top[i][0]/bottom;
+        }
+        return W;
+    }
+
     // Calculates coordinates for quadratic approximation
     public static double QuadraticApproximation(double x, double y, double x0, double y0){
         // Function f(x, y) = sin(x^2 + y^2)
