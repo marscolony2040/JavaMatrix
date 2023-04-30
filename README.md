@@ -168,28 +168,25 @@ public static void CovarExample(){
 ### Regression Coeffecients
 ![Equation](https://latex.codecogs.com/gif.latex?%5Cbeta%20%3D%20%28X%5ETX%29%5E%7B-1%7DX%5ETy)
 ```Java
+
 public static void MultiVariableReg(){
-    Matrix np = new Matrix();
-    StatPack sp = new StatPack();
-    double[][] X = {{1, 300, 298, 101},
-                    {1, 320, 245, 102},
-                    {1, 310, 233, 103},
-                    {1, 290, 252, 108},
-                    {1, 270, 253, 106},
-                    {1, 320, 257, 140},
-                    {1, 310, 254, 120},
-                    {1, 315, 280, 101},
-                    {1, 307, 260, 110},
-                    {1, 312, 259, 107},
-                    {1, 309, 251, 113}};
+    double[][] X = {{1, 300, 298, 101, 2},
+                    {1, 320, 245, 102, 3},
+                    {1, 310, 233, 103, 5},
+                    {1, 290, 252, 108, 1},
+                    {1, 270, 253, 106, 2},
+                    {1, 320, 257, 140, 4},
+                    {1, 310, 254, 120, 16},
+                    {1, 315, 280, 101, 9},
+                    {1, 307, 260, 110, 8},
+                    {1, 312, 259, 107, 2},
+                    {1, 309, 251, 113, 15}};
 
     double[] Yh = {20, 30, 50, 18, 23, 45, 66, 92, 84, 21, 55};
 
-      double[][] beta = sp.Regression(X, Yh);
+    double[][] beta = sp.Regression(X, Yh);
 
-      np.PrintM(beta);
-      
-      sp.ANOVA(X, beta, Yh);
+    sp.ANOVA(X, beta, Yh);
 
 }
 
