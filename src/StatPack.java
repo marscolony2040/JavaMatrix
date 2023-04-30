@@ -8,29 +8,15 @@ public class StatPack {
 
     public static Matrix np = new Matrix();
 
-    // function to calculate the CDF of the standard normal distribution
-    public static double normCDF(double x) {
-        return 0.5 * (1 + erf(x / Math.sqrt(2)));
+    public static double rx(double x, int p){
+        return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
-    // function to calculate the error function
-    public static double erf(double x) {
-        double t = 1.0 / (1.0 + 0.5 * Math.abs(x));
-        double ans = 1 - t * Math.exp(-x*x - 1.26551223 +
-                                      t * (1.00002368 +
-                                      t * (0.37409196 +
-                                      t * (0.09678418 +
-                                      t * (-0.18628806 +
-                                      t * (0.27886807 +
-                                      t * (-1.13520398 +
-                                      t * (1.48851587 +
-                                      t * (-0.82215223 +
-                                      t * (0.17087277))))))))));
-        if (x >= 0) {
-            return ans;
-        } else {
-            return -ans;
-        }
+    // function to calculate the CDF of the t-distribution with df degrees of freedom and a given t-value
+    public static double cdf(double t) {
+        double factor = 1.0 / Math.sqrt(2.0*Math.PI);
+        double x = Math.pow(t, 2) / 2.0;
+        return factor*Math.exp(-x);
     }
 
     // Calculates your beta coefficents for a multi-variable regression
@@ -59,18 +45,17 @@ public class StatPack {
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
             tscore[i] = beta[i][0]/sd[i][0];
-            pvalue[i] = normCDF(tscore[i]);
+            pvalue[i] = cdf(tscore[i]);
         }
         System.out.println("ANOVA TABLE");
         String output;
         for(int i = 0; i < beta.length; i++){
             if(i == 0){
-               output = "Intercept | StdErr: " + np.NtoS(stderr[i]) + " | TScore: " + np.NtoS(tscore[i]) + " | P-Value: " + np.NtoS(pvalue[i]);
-               System.out.println(output); 
-            } else {
-                output = "Variable: " + np.NtoS(i) + " | StdErr: " + np.NtoS(stderr[i]) + " | TScore: " + np.NtoS(tscore[i]) + " | P-Value: " + np.NtoS(pvalue[i]);
+                output = "Intercept | Beta: " + np.NtoS(rx(beta[i][0], 3)) + " | StdErr: " + np.NtoS(rx(stderr[i],3)) + " | TestStat: " + np.NtoS(rx(tscore[i],3)) + " | P-Value: " + np.NtoS(rx(pvalue[i],3));
                 System.out.println(output); 
-              
+            } else {
+                output = "Variable: " + np.NtoS(i) + " | Beta: " + np.NtoS(rx(beta[i][0], 3)) + " | StdErr: " + np.NtoS(rx(stderr[i],3)) + " | TestStat: " + np.NtoS(rx(tscore[i],3)) + " | P-Value: " + np.NtoS(rx(pvalue[i],3));
+                System.out.println(output); 
             }
             
         }
