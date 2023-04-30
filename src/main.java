@@ -17,7 +17,7 @@ class main {
 
     //System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
 
-    TargetReturn();
+    MultiVariableReg();
   }
 
   // Target Return Portfolio example demo
@@ -99,7 +99,7 @@ class main {
 
       double[][] beta = sp.Regression(X, Yh);
 
-      np.PrintM(beta);
+      sp.ANOVA(X, beta, Yh);
 
   }
 

@@ -97,6 +97,16 @@ public class Matrix {
       return res;
   }
 
+  // Subtracts two vectors with size (n x 1 | not n)
+  // To be used for regression
+  public static double[][] HOper(double[][] X, double[][] Y){
+    double[][] Z = new double[X.length][1];
+    for(int i = 0; i < X.length; i++){
+      Z[i][0] = X[i][0] - Y[i][0];
+    }
+    return Z;
+  }
+
   // Adds or subtracts two matrices
   public static double[][] MOper(double[][] X, double[][] Y, double op){
     double[][] Z = new double[X.length][X[0].length];

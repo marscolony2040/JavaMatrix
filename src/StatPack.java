@@ -8,6 +8,31 @@ public class StatPack {
 
     public static Matrix np = new Matrix();
 
+    // function to calculate the CDF of the standard normal distribution
+    public static double normCDF(double x) {
+        return 0.5 * (1 + erf(x / Math.sqrt(2)));
+    }
+
+    // function to calculate the error function
+    public static double erf(double x) {
+        double t = 1.0 / (1.0 + 0.5 * Math.abs(x));
+        double ans = 1 - t * Math.exp(-x*x - 1.26551223 +
+                                      t * (1.00002368 +
+                                      t * (0.37409196 +
+                                      t * (0.09678418 +
+                                      t * (-0.18628806 +
+                                      t * (0.27886807 +
+                                      t * (-1.13520398 +
+                                      t * (1.48851587 +
+                                      t * (-0.82215223 +
+                                      t * (0.17087277))))))))));
+        if (x >= 0) {
+            return ans;
+        } else {
+            return -ans;
+        }
+    }
+
     // Calculates your beta coefficents for a multi-variable regression
     public static double[][] Regression(double[][] X, double[] y) {
         double[][] Y = np.Vector(y);
@@ -15,6 +40,42 @@ public class StatPack {
         double[][] IXTX = np.InverseMatrix(XTX);
         double[][] XTY = np.MultiplyMatrix(np.Transpose(X), Y);
         return np.MultiplyMatrix(IXTX, XTY);
+    }
+
+    // Prints out your anova table
+    public static void ANOVA(double[][] X, double[][] beta, double[] y) {
+        System.out.println();
+        double[][] yhat = np.MultiplyMatrix(X, beta);
+        double[][] Y = np.Vector(y);
+        double[][] e = np.HOper(Y, yhat);
+        double RSS = np.MultiplyMatrix(np.Transpose(e), e)[0][0];
+        double df = X.length - X[0].length;
+        double factor = RSS / df;
+        double[][] mtx = np.InverseMatrix(np.MultiplyMatrix(np.Transpose(X), X));
+        double[][] top = np.Ax(factor, mtx);
+        double[][] sd = np.ExponentMatrix(np.Diag(top), 0.5);
+        double[] stderr = np.VArray(sd);
+        double[] tscore = new double[beta.length];
+        double[] pvalue = new double[beta.length];
+        for(int i = 0; i < beta.length; i++){
+            tscore[i] = beta[i][0]/sd[i][0];
+            pvalue[i] = normCDF(tscore[i]);
+        }
+        System.out.println("ANOVA TABLE");
+        String output;
+        for(int i = 0; i < beta.length; i++){
+            if(i == 0){
+               output = "Intercept | StdErr: " + np.NtoS(stderr[i]) + " | TScore: " + np.NtoS(tscore[i]) + " | P-Value: " + np.NtoS(pvalue[i]);
+               System.out.println(output); 
+            } else {
+                output = "Variable: " + np.NtoS(i) + " | StdErr: " + np.NtoS(stderr[i]) + " | TScore: " + np.NtoS(tscore[i]) + " | P-Value: " + np.NtoS(pvalue[i]);
+                System.out.println(output); 
+              
+            }
+            
+        }
+        System.out.println();
+        
     }
 
     // Calculates your mean vector
