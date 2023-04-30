@@ -188,10 +188,17 @@ public static void MultiVariableReg(){
       double[][] beta = sp.Regression(X, Yh);
 
       np.PrintM(beta);
+      
+      sp.ANOVA(X, beta, Yh);
 
 }
 
 ```
+### ANOVA Table
+```Java
+sp.ANOVA(X, beta, Yh);
+```
+![alt](https://github.com/marscolony2040/JavaMatrix/blob/master/anova.png)
 
 ### Target Rate and Tangent Portfolio
 
