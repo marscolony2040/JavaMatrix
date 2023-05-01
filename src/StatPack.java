@@ -13,33 +13,39 @@ public class StatPack {
         return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
-    // function to calculate the CDF 
-    public static double cdf(double t) {
-        double factor = 1.0 / Math.sqrt(2.0*Math.PI);
-        double x = Math.pow(t, 2) / 2.0;
-        return factor*Math.exp(-x);
+    // function to calculate the CDF of the t-distribution with df degrees of freedom and a given t-value
+    public static double cdf(double t, int df) {
+        double x = t * Math.sqrt(df) / Math.sqrt(df + t*t);
+        double cdf = 0.5 + 0.5 * normalCDF(x);
+        if(t <= 0){
+            return cdf;
+        } else {
+            return 1 - cdf;
+        }
     }
 
-    // Norm
-    public static double norm(double x) {
-        int n = 201;
-        double x0 = -15, x1 = x, dX = 0, DX = 0, C = 0, total = 0;
-        DX = (x1 - x0)/ ((double) n - 1);
-        for(int i = 0; i < n; i++){
-            if(i == 0 || i == n - 1){
-                C = 1.0;
-            } else if(i % 2 == 0){
-                C = 2.0;
-            } else {
-                C = 4.0;
-            }
-            total += C*cdf(x0 + i*DX);
-        }
-        double prob = total *= DX/3.0;
-        if(x < 0){
-            return prob;
+    // function to calculate the CDF of the standard normal distribution
+    private static double normalCDF(double x) {
+        return 0.5 * (1 + erf(x / Math.sqrt(2)));
+    }
+
+    // function to calculate the error function
+    private static double erf(double x) {
+        double t = 1.0 / (1.0 + 0.5 * Math.abs(x));
+        double ans = 1 - t * Math.exp(-x*x - 1.26551223 +
+                                      t * (1.00002368 +
+                                      t * (0.37409196 +
+                                      t * (0.09678418 +
+                                      t * (-0.18628806 +
+                                      t * (0.27886807 +
+                                      t * (-1.13520398 +
+                                      t * (1.48851587 +
+                                      t * (-0.82215223 +
+                                      t * (0.17087277))))))))));
+        if (x >= 0) {
+            return ans;
         } else {
-            return 1 - prob;
+            return -ans;
         }
     }
 
@@ -69,7 +75,7 @@ public class StatPack {
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
             tscore[i] = beta[i][0]/sd[i][0];
-            pvalue[i] = norm(tscore[i]);
+            pvalue[i] = cdf(tscore[i], (int) df);
         }
         System.out.println("ANOVA TABLE");
         String output;
