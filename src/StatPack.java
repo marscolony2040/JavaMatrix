@@ -8,15 +8,39 @@ public class StatPack {
 
     public static Matrix np = new Matrix();
 
+    // Modified round function
     public static double rx(double x, int p){
         return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
-    // function to calculate the CDF of the t-distribution with df degrees of freedom and a given t-value
+    // function to calculate the CDF 
     public static double cdf(double t) {
         double factor = 1.0 / Math.sqrt(2.0*Math.PI);
         double x = Math.pow(t, 2) / 2.0;
         return factor*Math.exp(-x);
+    }
+
+    // Norm
+    public static double norm(double x) {
+        int n = 201;
+        double x0 = -15, x1 = x, dX = 0, DX = 0, C = 0, total = 0;
+        DX = (x1 - x0)/ ((double) n - 1);
+        for(int i = 0; i < n; i++){
+            if(i == 0 || i == n - 1){
+                C = 1.0;
+            } else if(i % 2 == 0){
+                C = 2.0;
+            } else {
+                C = 4.0;
+            }
+            total += C*cdf(x0 + i*DX);
+        }
+        double prob = total *= DX/3.0;
+        if(x < 0){
+            return prob;
+        } else {
+            return 1 - prob;
+        }
     }
 
     // Calculates your beta coefficents for a multi-variable regression
@@ -45,7 +69,7 @@ public class StatPack {
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
             tscore[i] = beta[i][0]/sd[i][0];
-            pvalue[i] = cdf(tscore[i]);
+            pvalue[i] = norm(tscore[i]);
         }
         System.out.println("ANOVA TABLE");
         String output;
