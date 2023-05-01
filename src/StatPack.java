@@ -16,12 +16,8 @@ public class StatPack {
     // function to calculate the CDF of the t-distribution with df degrees of freedom and a given t-value
     public static double cdf(double t, int df) {
         double x = t * Math.sqrt(df) / Math.sqrt(df + t*t);
-        double cdf = 0.5 + 0.5 * normalCDF(x);
-        if(t <= 0){
-            return cdf;
-        } else {
-            return 1 - cdf;
-        }
+        double cdfx = 0.5 + 0.5 * normalCDF(x);
+        return 1.0 - cdfx;
     }
 
     // function to calculate the CDF of the standard normal distribution
