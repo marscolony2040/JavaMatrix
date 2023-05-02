@@ -140,6 +140,15 @@ public class Matrix {
       return Y;
   }
 
+  // Used for TSS
+  public static double[][] Dx(double a, double[][] H){
+    double[][] I = new double[H.length][1];
+    for(int i = 0; i < H.length; i++){
+      I[i][0] = Math.pow(H[i][0] - a, 2);
+    }
+    return I;
+  }
+
   // Returns the diagonal of a matrix
   public static double[][] Diag(double[][] X){
       double[][] Y = new double[X.length][1];
@@ -180,6 +189,15 @@ public class Matrix {
       }
     }
     return totalS;
+  }
+
+  // Takes the sum of a column matrix
+  public static double MpSum(double[][] X){
+    double the_total = 0;
+    for(int i = 0; i < X.length; ++i){
+      the_total += X[i][0];
+    }
+    return the_total;
   }
 
   // Transposes your matrix

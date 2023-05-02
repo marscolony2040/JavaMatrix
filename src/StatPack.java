@@ -60,9 +60,19 @@ public class StatPack {
         System.out.println();
         double[][] yhat = np.MultiplyMatrix(X, beta);
         double[][] Y = np.Vector(y);
+        double y_mu = Mean(Y)[0][0];
+        
         double[][] e = np.HOper(Y, yhat);
+        double TSS = np.MpSum(np.Dx(y_mu, Y));
         double RSS = np.MultiplyMatrix(np.Transpose(e), e)[0][0];
+        double ESS = TSS - RSS;
+        double rsq = 1.0 - RSS/TSS;
         double df = X.length - X[0].length;
+        double n = X.length;
+        double m = X[0].length;
+        double adj_rsq = 1 - (1 - rsq)*(n - 1)/(n - m - 1);
+        double F = (ESS/m)/(RSS/(n - m - 1));
+        double standard_error = Math.sqrt(RSS/(n - m - 1));
         double factor = RSS / df;
         double[][] mtx = np.InverseMatrix(np.MultiplyMatrix(np.Transpose(X), X));
         double[][] top = np.Ax(factor, mtx);
@@ -75,6 +85,12 @@ public class StatPack {
             pvalue[i] = cdf(tscore[i], (int) df);
         }
         System.out.println("ANOVA TABLE");
+        System.out.println();
+        System.out.println("R-Squared: " + np.NtoS(rsq));
+        System.out.println("Adj-RSquared: " + np.NtoS(adj_rsq));
+        System.out.println("F-Statistic: " + np.NtoS(F));
+        System.out.println("Standard Error: " + np.NtoS(standard_error));
+        System.out.println();
         String output;
         for(int i = 0; i < beta.length; i++){
             if(i == 0){
