@@ -13,38 +13,31 @@ public class StatPack {
         return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
-    // function to calculate the CDF of the t-distribution with df degrees of freedom and a given t-value
-    public static double cdf(double t, int df) {
+    public static double N(double x){
+        double factor = 1.0/Math.sqrt(2*Math.PI);
+        double e = Math.exp(-Math.pow(x, 2)/2);
+        return factor*e;
+    }
+
+    public static double PVal(double t){
+        double prob = 0.0;
+        double t0 = -10;
+        double slabs = 311;
         t = Math.abs(t);
-        double x = t * Math.sqrt(df) / Math.sqrt(df + t*t);
-        double cdfx = 0.5 + 0.5 * normalCDF(x);
-        return 1.0 - cdfx;
-    }
-
-    // function to calculate the CDF of the standard normal distribution
-    private static double normalCDF(double x) {
-        return 0.5 * (1 + erf(x / Math.sqrt(2)));
-    }
-
-    // function to calculate the error function
-    private static double erf(double x) {
-        double t = 1.0 / (1.0 + 0.5 * Math.abs(x));
-        double ans = 1 - t * Math.exp(-x*x - 1.26551223 +
-                                      t * (1.00002368 +
-                                      t * (0.37409196 +
-                                      t * (0.09678418 +
-                                      t * (-0.18628806 +
-                                      t * (0.27886807 +
-                                      t * (-1.13520398 +
-                                      t * (1.48851587 +
-                                      t * (-0.82215223 +
-                                      t * (0.17087277))))))))));
-        if (x >= 0) {
-            return ans;
-        } else {
-            return -ans;
+        double dt = (t - t0)/(slabs - 1);
+        for(int i = 0; i < (int) slabs; i++){
+            if(i == 0 || i == slabs - 1){
+                prob += N(t0 + i*dt)*1.0;
+            } else if(i % 2 == 0){
+                prob += 2.0*N(t0 + i*dt);
+            } else {
+                prob += 4.0*N(t0 + i*dt);
+            }
         }
+        prob *= dt / 3.0;
+        return 1 - prob;
     }
+    
 
     // Calculates your beta coefficents for a multi-variable regression
     public static double[][] Regression(double[][] X, double[] y) {
@@ -69,7 +62,7 @@ public class StatPack {
         double rsq = 1.0 - RSS/TSS;
         double df = X.length - X[0].length;
         double n = X.length;
-        double m = X[0].length;
+        double m = X[0].length - 1;
         double adj_rsq = 1 - (1 - rsq)*(n - 1)/(n - m - 1);
         double F = (ESS/m)/(RSS/(n - m - 1));
         double standard_error = Math.sqrt(RSS/(n - m - 1));
@@ -77,12 +70,12 @@ public class StatPack {
         double[][] mtx = np.InverseMatrix(np.MultiplyMatrix(np.Transpose(X), X));
         double[][] top = np.Ax(factor, mtx);
         double[][] sd = np.ExponentMatrix(np.Diag(top), 0.5);
-        double[] stderr = np.VArray(np.Scalar(sd, n - m - 1));
+        double[] stderr = np.VArray(np.Scalar(sd, 1.0));
         double[] tscore = new double[beta.length];
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
             tscore[i] = beta[i][0]/stderr[i];
-            pvalue[i] = cdf(tscore[i], (int) df);
+            pvalue[i] = PVal(Math.abs(tscore[i]));
         }
         System.out.println("ANOVA TABLE");
         System.out.println();
