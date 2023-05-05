@@ -8,6 +8,7 @@ class main {
 
   public static StatPack sp = new StatPack();
   public static Matrix np = new Matrix();
+  public static data dx = new data();
 
   public static void main(String[] args) throws Exception {
 
@@ -18,7 +19,28 @@ class main {
     //System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
 
     MultiVariableReg();
+    
+    String[][] df = dx.CSV("INTC.csv");
+    double[] y = dx.extract_column(df, "adjClose");
+    double[] x1 = dx.extract_column(df, "open");
+    double[] x2 = dx.extract_column(df, "high");
+    double[] x3 = dx.extract_column(df, "low");
+
+    double[][] frame = new double[3][y.length];
+    frame = dx.BuildDF(frame, x1, 0);
+    frame = dx.BuildDF(frame, x2, 1);
+    frame = dx.BuildDF(frame, x3, 2);
+
+    frame = np.Transpose(frame);
+
+    double[][] beta = sp.Regression(frame, y);
+
+    sp.ANOVA(frame, beta, y);
   }
+
+  
+  
+  
 
   // Target Return Portfolio example demo
   public static void TargetReturn(){
