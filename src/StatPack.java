@@ -77,11 +77,11 @@ public class StatPack {
         double[][] mtx = np.InverseMatrix(np.MultiplyMatrix(np.Transpose(X), X));
         double[][] top = np.Ax(factor, mtx);
         double[][] sd = np.ExponentMatrix(np.Diag(top), 0.5);
-        double[] stderr = np.VArray(sd);
+        double[] stderr = np.VArray(np.Scalar(sd, X.length));
         double[] tscore = new double[beta.length];
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
-            tscore[i] = beta[i][0]/sd[i][0];
+            tscore[i] = beta[i][0]/stderr[i];
             pvalue[i] = cdf(tscore[i], (int) df);
         }
         System.out.println("ANOVA TABLE");

@@ -88,6 +88,15 @@ public class Matrix {
     return res;
   }
 
+  // Divides a scalar from a vector
+  public static double[][] Scalar(double[][] X, double c){
+    double[][] Y = new double[X.length][1];
+    for(int i = 0; i < X.length; i++){
+      Y[i][0] = X[i][0] / Math.sqrt(c);
+    }
+    return Y;
+  }
+
   // Creates a zeros or ones vector
   public static double[][] Ones(int n, double coef){
       double[][] res = new double[1][n];
