@@ -9,6 +9,20 @@ public class data {
         return df1;
     }
 
+    public static double[][] RegBeta(double[][] X){
+        double[][] Y = new double[X.length][X[0].length + 1];
+        for(int i = 0; i < Y.length; i++){
+            for(int j = 0; j < Y[0].length; j++){
+                if(j == 0){
+                    Y[i][j] = 1.0;
+                } else {
+                    Y[i][j] = X[i][j-1];
+                }
+            }
+        }
+        return Y;
+    }
+
     public static double[] extract_column(String[][] data, String col_name){
         double[] res = new double[data.length - 1];
         String[] cols = data[0];
