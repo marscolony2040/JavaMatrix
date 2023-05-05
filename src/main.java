@@ -20,12 +20,17 @@ class main {
 
     //MultiVariableReg();
     
+    CSVReg();
+
+  }
+
+  public static void CSVReg() throws Exception {
     String[][] df = dx.CSV("SPY.csv");
     double[] y = dx.extract_column(df, "adjClose");
     double[] x1 = dx.extract_column(df, "open");
     double[] x2 = dx.extract_column(df, "high");
     double[] x3 = dx.extract_column(df, "low");
-    double[] x4 = dx.extract_column(df, "volume");
+    double[] x4 = dx.extract_column(df, "close");
 
     double[][] frame = new double[4][y.length];
     frame = dx.BuildDF(frame, x1, 0);
@@ -40,8 +45,6 @@ class main {
 
     sp.ANOVA(frame, beta, y);
   }
-
-  
   
   
 
