@@ -18,14 +18,14 @@ class main {
 
     //System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
 
-    //MultiVariableReg();
+    MultiVariableReg();
     
     CSVReg();
 
   }
 
   public static void CSVReg() throws Exception {
-    String[][] df = dx.CSV("SPY.csv");
+    String[][] df = dx.CSV("SPX.csv");
     double[] y = dx.extract_column(df, "adjClose");
     double[] x1 = dx.extract_column(df, "open");
     double[] x2 = dx.extract_column(df, "high");

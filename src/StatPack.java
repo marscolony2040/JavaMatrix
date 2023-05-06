@@ -13,15 +13,15 @@ public class StatPack {
         return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
-    public static double N(double x){
+    private static double N(double x){
         double factor = 1.0/Math.sqrt(2*Math.PI);
         double e = Math.exp(-Math.pow(x, 2)/2);
         return factor*e;
     }
 
-    public static double PVal(double t){
+    private static double PVal(double t){
         double prob = 0.0;
-        double t0 = -10;
+        double t0 = 0;
         double slabs = 311;
         t = Math.abs(t);
         double dt = (t - t0)/(slabs - 1);
@@ -35,9 +35,8 @@ public class StatPack {
             }
         }
         prob *= dt / 3.0;
-        return 1 - prob;
+        return 1 - (prob + 0.5);
     }
-    
 
     // Calculates your beta coefficents for a multi-variable regression
     public static double[][] Regression(double[][] X, double[] y) {
@@ -75,7 +74,7 @@ public class StatPack {
         double[] pvalue = new double[beta.length];
         for(int i = 0; i < beta.length; i++){
             tscore[i] = beta[i][0]/stderr[i];
-            pvalue[i] = PVal(Math.abs(tscore[i]));
+            pvalue[i] = PVal(tscore[i]);
         }
         System.out.println("ANOVA TABLE");
         System.out.println();
