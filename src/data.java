@@ -3,12 +3,15 @@ import java.text.*;
 import java.io.*;
 
 public class data {
-
+    
+    // Adds a vector to a dataframe
     public static double[][] BuildDF(double[][] df1, double[] row, int i){
         df1[i] = row;
         return df1;
     }
 
+    // Used for Regression where 1.0 is added to the beginning of each row in order to 
+    // compute the intercept for it
     public static double[][] RegBeta(double[][] X){
         double[][] Y = new double[X.length][X[0].length + 1];
         for(int i = 0; i < Y.length; i++){
@@ -23,6 +26,7 @@ public class data {
         return Y;
     }
 
+    // Extracts a numeric column from the dataframe
     public static double[] extract_column(String[][] data, String col_name){
         double[] res = new double[data.length - 1];
         String[] cols = data[0];
@@ -42,6 +46,7 @@ public class data {
         return res;
     }
 
+    // Transposes a dataframe
     public static String[][] TransposeDF(String[][] df){
         String[][] result = new String[df[0].length][df.length];
         for(int i = 0; i < df.length; i++){
@@ -52,6 +57,7 @@ public class data {
         return result;
     }
 
+    // Reads a CSV file
     public static String[][] CSV(String filename) throws Exception {
         File file = new File(filename);
         Scanner scanner = new Scanner(file);

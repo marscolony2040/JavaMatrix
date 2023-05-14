@@ -12,7 +12,7 @@ public class Matrix {
     return y;
   }
 
-  // Random number matrix
+  // Random number vector
   public static double[] rand_nums(int n){
     double[] res = new double[n];
     for(int i = 0; i < n; i++){
@@ -21,7 +21,7 @@ public class Matrix {
     return res;
   }
 
-  // Successfully transfers matrix
+  // Successfully transfers a numeric matrix
   public static double[][] Transfer(double[][] X){
     double[][] Y = new double[X.length][X[0].length];
     for(int i = 0; i < X.length; i++){
@@ -53,7 +53,7 @@ public class Matrix {
     System.out.println();
   }
 
-  // Prints out your dataframe
+  // Prints out your matrix
   public static void PrintDF(String[][] X){
     System.out.println("Matrix Dimensions: " + Integer.toString(X.length) + ", " + Integer.toString(X[0].length));
     for(int i = 0; i < X.length; i++){

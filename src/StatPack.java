@@ -13,12 +13,14 @@ public class StatPack {
         return Math.round(x*Math.pow(10,p))/Math.pow(10,p);
     }
 
+    // Normal Distribution Function
     private static double N(double x){
         double factor = 1.0/Math.sqrt(2*Math.PI);
         double e = Math.exp(-Math.pow(x, 2)/2);
         return factor*e;
     }
 
+    // Calculates probability value with an inputted test statistic
     private static double PVal(double t){
         double prob = 0.0;
         double t0 = 0;

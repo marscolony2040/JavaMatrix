@@ -17,8 +17,6 @@ class main {
     //np.PrintM(sp.Variance(X, "covariance"));
 
     //System.out.println(sp.QuadraticApproximation(1, 2, 0.3, 0.7));
-
-    MultiVariableReg();
     
     CSVReg();
 
